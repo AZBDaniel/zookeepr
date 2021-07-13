@@ -2,14 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const { animals } = require('./data/animals');
-const { mainModule } = require('process');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'));
 
 function filterByQuery(query, animalsArray) {
   let personalityTraitsArray = [];
@@ -68,7 +67,6 @@ function validateAnimal(animal) {
   }
   return true;
 }
-
 
 app.get('/api/animals', (req, res) => {
   let results = animals;
